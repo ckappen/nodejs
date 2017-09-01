@@ -1,0 +1,19 @@
+---
+# tasks file for nodejs
+
+- name: set distro-specific variables
+  include_vars: "{{ ansible_os_family | lower }}.yml"
+  ignore_errors: true
+
+- include: "{{ ansible_os_family | lower }}_setup.yml"
+
+- name: Install NodeJS Packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ nodejs_packages }}"
+    - "{{ nodejs_additional_packages }}"
+  tags:
+    - package
+    - nodejs

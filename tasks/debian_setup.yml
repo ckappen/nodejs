@@ -1,0 +1,23 @@
+---
+
+- name: Add Node Source APT Repository Key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 68576280
+  register: nodejs_apt_key
+
+- name: Update keyring
+  when: nodejs_apt_key.changed
+  command: "apt-key update"
+  tags:
+    - setup
+    - nodejs
+
+- name: Add Node Source App Repository
+  apt_repository:
+    repo: 'deb http://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main'
+    state: present
+    update_cache: yes
+  tags:
+    - setup
+    - nodejs
