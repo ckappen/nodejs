@@ -15,7 +15,7 @@
 
 - name: Add Node Source App Repository
   apt_repository:
-    repo: 'deb http://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main'
+    repo: 'deb http://deb.nodesource.com/node_6.x {{ ansible_distribution_release }} main'
     state: present
     update_cache: yes
   tags:
